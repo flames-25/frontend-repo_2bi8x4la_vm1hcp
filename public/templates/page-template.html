@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}" />
+  <meta name="keywords" content="{{ keywords|join(', ') }}" />
+  <meta name="robots" content="index,follow" />
+  <meta property="og:title" content="{{ og_title or title }}" />
+  <meta property="og:description" content="{{ og_description or description }}" />
+  <meta property="og:type" content="article" />
+  {% if images and images[0] %}
+  <meta property="og:image" content="{{ images[0].url }}" />
+  {% endif %}
+  <link rel="canonical" href="{{ canonical }}" />
+</head>
+<body>
+  <main>
+    <article>
+      <h1>{{ h1 or title }}</h1>
+      <section aria-labelledby="ringkasan">
+        <h2 id="ringkasan">Ringkasan</h2>
+        <p>{{ summary }}</p>
+      </section>
+      <section aria-labelledby="subbagian">
+        <h2 id="subbagian">{{ subheading }}</h2>
+        <p>{{ body }}</p>
+      </section>
+      <section aria-labelledby="gambar">
+        <h2 id="gambar">Gambar Terkait</h2>
+        <ul>
+          {% for img in images %}
+          <li>
+            <figure>
+              <img src="{{ img.url }}" alt="{{ img.alt }}" />
+              <figcaption>
+                Kredit: {{ img.credit }} — Saran lisensi: {{ img.license_suggestion }}
+              </figcaption>
+            </figure>
+          </li>
+          {% endfor %}
+        </ul>
+      </section>
+      <section aria-labelledby="referensi">
+        <h2 id="referensi">Daftar Referensi</h2>
+        <ol>
+          {% for ref in references %}
+          <li><a href="{{ ref.url }}" rel="noopener noreferrer">{{ ref.label }}</a></li>
+          {% endfor %}
+        </ol>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
